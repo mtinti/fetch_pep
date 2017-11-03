@@ -20,6 +20,7 @@ class FindPep():
         if type(seq) != type('AA'):
             raise Exception('error', 'sequence must be a string') 
         seq = seq.upper()
+        print len(seq)
         self.seq = seq
         
     def find(self, peptide):
@@ -29,12 +30,16 @@ class FindPep():
         return res
     
     def extract_seq(self, position=0, extend=1, expected_aa = []):
+        #######################################################
         #position numbering according to python counting from 0
         #generally speaking remove 1 from the aminoacid position
+        #######################################################
         
         #some control on input
         if type(position) != type(1) or position < 0:
-            raise Exception('error', 'position must be positive int')       
+            raise Exception('error', 'position must be positive int') 
+        if position+1 > len(self.seq):
+            raise Exception('error', 'position must be inside sequence')
         if type(extend) != type(1) or extend < 0:
             raise Exception('error', 'extend must be positive int')
         if type(expected_aa) != type([]):
@@ -43,6 +48,7 @@ class FindPep():
             if type(aa) != type('a') or len(aa) >1:
                 raise Exception('error', 'expected_aa', index,
                                 'is not a chr')
+            
         
         #treat everithing upper case        
         expected_aa = [n.upper() for n in expected_aa]    
@@ -93,7 +99,11 @@ if __name__ == '__main__':
     test_class = FindPep(test_seq)
     test_pep = test_class.extract_seq(position=9, extend=10, expected_aa=['A'])
     print test_pep
-    assert '-MNLKALVVIASVAVTSALPK' == test_pep  
+    assert '-MNLKALVVIASVAVTSALPK' == test_pep 
+    
+    test_pep = test_class.extract_seq(position=241, extend=10, expected_aa=['A'])
+    print test_pep    
+    
     
 
 
