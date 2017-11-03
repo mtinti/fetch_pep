@@ -20,7 +20,7 @@ class FindPep():
         if type(seq) != type('AA'):
             raise Exception('error', 'sequence must be a string') 
         seq = seq.upper()
-        print len(seq)
+        #print len(seq)
         self.seq = seq
         
     def find(self, peptide):
@@ -75,7 +75,9 @@ class FindPep():
         if len(res) != extend*2+1:
             print position, extend, res,  len(self.seq)
             raise Exception('error', 'peptide length')
-        
+            
+        #test if the central aa is what we expect, rainsing a warning 
+        #for the moment
         if len(expected_aa) > 0:
             if res[extend] not in expected_aa:
                  warnings.warn("central AA not in expected")
