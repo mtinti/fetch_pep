@@ -24,6 +24,11 @@ class FindPep():
         self.seq = seq
         
     def find(self, peptide):
+        if type(peptide) != type('AA'):
+            raise Exception('error', 'peptide must be string') 
+        if len(peptide) > len(self.seq):
+            raise Exception('error', 'peptide must be shorter than protein') 
+            
         res = []
         for item in re.finditer(peptide, self.seq):
             res.append( item.start() )
@@ -101,7 +106,7 @@ if __name__ == '__main__':
     test_class = FindPep(test_seq)
     test_pep = test_class.extract_seq(position=9, extend=10, expected_aa=['A'])
     print test_pep
-    assert '-MNLKALVVIASVAVTSALPK' == test_pep 
+    assert ('-MNLKALVVIASVAVTSALPK' == test_pep )
     
     test_pep = test_class.extract_seq(position=241, extend=10, expected_aa=['A'])
     print test_pep    
