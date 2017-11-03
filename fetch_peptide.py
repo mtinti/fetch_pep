@@ -51,7 +51,7 @@ class FindPep():
             
         
         #treat everithing upper case        
-        expected_aa = [n.upper() for n in expected_aa]    
+        expected_aa = set([n.upper() for n in expected_aa])   
             
         if position < extend and position >= len(self.seq)-extend:
             add_front = extend-position
