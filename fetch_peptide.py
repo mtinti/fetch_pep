@@ -23,11 +23,13 @@ class FindPep():
         #print len(seq)
         self.seq = seq
         
-    def find(self, peptide):
+    def find(self, peptide=''):
         if type(peptide) != type('AA'):
             raise Exception('error', 'peptide must be string') 
         if len(peptide) > len(self.seq):
             raise Exception('error', 'peptide must be shorter than protein') 
+        if len(peptide) < 2:
+            raise Exception('error', 'peptide must be bigger\equal than 2 ') 
             
         res = []
         for item in re.finditer(peptide, self.seq):
